@@ -1,0 +1,83 @@
+# Generar clave SSH RSA de 4096 bits (presiona Enter para todo por defecto)
+ssh-keygen -t rsa -b 4096 -C "tu-email@example.com"
+
+# Iniciar el agente SSH
+eval "$(ssh-agent -s)"
+
+# Añadir la clave privada recién creada al agente SSH
+ssh-add ~/.ssh/id_rsa
+
+# Mostrar la clave pública para copiar (no la privada)
+cat ~/.ssh/id_rsa.pub
+
+# --- Ahora copia la salida del comando anterior y pégala en GitHub en:
+# Settings > SSH and GPG keys > New SSH key
+# Dale un título y guarda.
+
+# Cambiar la URL remota para usar SSH en vez de HTTPS
+git remote set-url origin git@github.com:danieltajamar2025/bbdd_1.git
+
+# Probar conexión SSH con GitHub
+ssh -T git@github.com
+
+# Finalmente, hacer push al repositorio
+git push -u origin main
+
+
+
+1. Clonar el repositorio
+bash
+Copiar
+Editar
+git clone git@github.com:danieltajamar2025/bbdd_1.git
+cd bbdd_1
+
+2. Instalar dependencias PHP con Composer
+Si no tienes Composer instalado:
+
+bash
+Copiar
+Editar
+sudo apt update
+sudo apt install curl php-cli php-mbstring unzip -y
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+
+composer install
+
+3. Configurar archivo .env
+Copia el archivo de ejemplo:
+
+bash
+Copiar
+Editar
+cp .env.example .env
+Edita .env con tus datos, especialmente la conexión a base de datos:
+
+env
+Copiar
+Editar
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=biblioteca
+DB_USERNAME=root
+DB_PASSWORD=root
+
+4. Crear la base de datos MySQL
+Entra en MySQL y crea la base de datos:
+
+bash
+Copiar
+Editar
+sudo mysql -u root -p
+CREATE DATABASE biblioteca;
+EXIT;
+
+Ejecutar migraciones para crear tablas
+bash
+Copiar
+Editar
+php artisan migrate
+
+
